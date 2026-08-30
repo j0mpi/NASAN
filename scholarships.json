@@ -1,0 +1,239 @@
+[
+  {
+    "Scholarship Name": "Don Mariano F. Jhocson Gold Scholar",
+    "Minimum GWA": "97%",
+    "Year Level restrictions": "Incoming first-year college students (graduating Senior High School)",
+    "Specific Program": "All degree programs",
+    "Employment status preference": "Not applicable",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Certificate of Overall Academic Recognition signed by the principal indicating the academic award received",
+      "Proof of Family Income: Certificate of Indigency from the barangay (for parents without source of income), OR Latest Tax Exemption Certificate or Income Tax Return (ITR) for both parents showing a combined annual income of Php360,000 or less",
+      "Two (2) recommendation letters from your current school administrators or teachers, addressed to the NU Campus Head, Dr. Arlene O. Trillanes, and the Admissions Office",
+      "Photocopy of a valid ID from each of the recommenders with their affixed signatures"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Dona Miguela M. Jhocson Blue Scholar",
+    "Minimum GWA": "95%",
+    "Year Level restrictions": "Incoming first-year college students (graduating Senior High School)",
+    "Specific Program": "All degree programs",
+    "Employment status preference": "Not applicable",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Certificate of Overall Academic Recognition signed by the principal indicating the academic award received",
+      "Proof of Family Income: Certificate of Indigency from the barangay (for parents without source of income), OR Latest Tax Exemption Certificate or Income Tax Return (ITR) for both parents showing a combined annual income of Php360,000 or less",
+      "Two (2) recommendation letters from your current school administrators or teachers, addressed to the NU Campus Head, Dr. Arlene O. Trillanes, and the Admissions Office",
+      "Photocopy of a valid ID from each of the recommenders with their affixed signatures"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Dona Pacita J. Ocampo White Scholar",
+    "Minimum GWA": "90%",
+    "Year Level restrictions": "Incoming first-year college students (graduating Senior High School)",
+    "Specific Program": "All degree programs",
+    "Employment status preference": "Not applicable",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Certificate of Overall Academic Recognition signed by the principal indicating the academic award received",
+      "Proof of Family Income: Certificate of Indigency from the barangay (for parents without source of income), OR Latest Tax Exemption Certificate or Income Tax Return (ITR) for both parents showing a combined annual income of Php360,000 or less",
+      "Two (2) recommendation letters from your current school administrators or teachers, addressed to the NU Campus Head, Dr. Arlene O. Trillanes, and the Admissions Office",
+      "Photocopy of a valid ID from each of the recommenders with their affixed signatures"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Mariano Jhocson Science Scholarship Program",
+    "Minimum GWA": "90%",
+    "Year Level restrictions": "Incoming first-year college students (graduating Senior High School)",
+    "Specific Program": "All degree programs (for graduates from recognized Science High Schools)",
+    "Employment status preference": "Not applicable",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Certificate of Overall Academic Recognition signed by the principal indicating the academic award received",
+      "Proof of Family Income: Certificate of Indigency from the barangay (for parents without source of income), OR Latest Tax Exemption Certificate or Income Tax Return (ITR) for both parents showing a combined annual income of Php360,000 or less",
+      "Two (2) recommendation letters from your current school administrators or teachers, addressed to the NU Campus Head, Dr. Arlene O. Trillanes, and the Admissions Office",
+      "Photocopy of a valid ID from each of the recommenders with their affixed signatures"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Nationalian Discount Program for College",
+    "Minimum GWA": "88%",
+    "Year Level restrictions": "Incoming first-year college students (graduating Senior High School)",
+    "Specific Program": "All college programs",
+    "Employment status preference": "Not applicable",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Complete basic Admissions Requirements for Senior High School"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Nationalian Discount Program for Senior High School",
+    "Minimum GWA": "90%",
+    "Year Level restrictions": "Incoming Grade 11 students (graduating Grade 10)",
+    "Specific Program": "All Senior High School programs",
+    "Employment status preference": "Not applicable",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Complete basic Admissions Requirements for Senior High School"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "NU Nazareth School and NU Senior High School Loyalty Discount",
+    "Minimum GWA": "Not specified",
+    "Year Level restrictions": "Incoming first-year college students who are NU SHS graduates",
+    "Specific Program": "All college programs in any NU campus",
+    "Employment status preference": "Not applicable",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Proof of Enrollment: Official Certificate of Enrollment from the NU SHS Registrar's Office, OR Certificates of Registration (COR) for both Grade 11 and 12, OR Report Cards for both Grade 11 and 12"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Employees of SM and its Affiliates",
+    "Minimum GWA": "Not specified",
+    "Year Level restrictions": "All levels (applicable to immediate family members)",
+    "Specific Program": "All programs",
+    "Employment status preference": "Must be an immediate family member of an employee of SM and its affiliates",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Birth Certificate of both employee and applicant who will avail the discount/scholarship",
+      "Photocopy of the Employee's Company ID",
+      "Updated Certificate of Employment (COE) of the employee",
+      "Employee's Certificate of No Marriage (CENOMAR) if availing the scholarship for siblings"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Family of Alumni",
+    "Minimum GWA": "Not specified",
+    "Year Level restrictions": "All levels",
+    "Specific Program": "All programs (discount varies for postgraduate)",
+    "Employment status preference": "Must be a first-degree family member of an NU alumnus",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Photocopy of the Alumnus' Birth Certificate",
+      "Alumnus' Certificate of No Marriage (CENOMAR) --- applicable only if enrolling a sibling",
+      "Alumnus' Proof of Graduation: Alumni ID, Transcript of Records, or Diploma"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Sibling Discount",
+    "Minimum GWA": "Not specified",
+    "Year Level restrictions": "All levels",
+    "Specific Program": "All programs",
+    "Employment status preference": "Must have a sibling currently enrolled at NU",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Photocopy of Certificates of Registration (COR) for both siblings currently enrolled at National University (NU)",
+      "Birth Certificates of all siblings currently enrolled at National University to verify the relationship"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "People with Disability (PWD)",
+    "Minimum GWA": "Not specified",
+    "Year Level restrictions": "All levels",
+    "Specific Program": "All programs",
+    "Employment status preference": "Applicant must be a person with a disability",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Persons with Disability (PWD) Identification Card",
+      "Medical Abstract required for first-time applicants, especially those with a psychological disability"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Armed Forces of the Philippines (AFP)",
+    "Minimum GWA": "Not specified",
+    "Year Level restrictions": "All levels",
+    "Specific Program": "All programs (discount varies for postgraduate)",
+    "Employment status preference": "Must be a dependent of an AFP service unit",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Letter of Endorsement issued by AFP Educational Benefit System Office (AFPEBSO)",
+      "Birth Certificate of both employee and applicant who will avail the discount/scholarship",
+      "Photocopy of the valid ID of the AFP member",
+      "Employee's Certificate of No Marriage (CENOMAR) for members who will enroll their sibling/s"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Bureau of Fire Protection (BFP)",
+    "Minimum GWA": "Not specified",
+    "Year Level restrictions": "All levels",
+    "Specific Program": "All degree programs",
+    "Employment status preference": "Must be a regular/plantilla-positioned uniformed and civilian active employee of BFP or their immediate family member",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Letter of Endorsement from the Director for Personnel, BFP-NHQ stipulating the name of dependent, name of BFP employee, and unit assignment",
+      "Birth Certificate of both employee and applicant who will avail the discount/scholarship",
+      "Photocopy of the valid ID of the BFP member",
+      "Employee's Certificate of No Marriage (CENOMAR) for members who will enroll their sibling/s"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Philippine Coast Guard (PCG)",
+    "Minimum GWA": "Not specified",
+    "Year Level restrictions": "All levels",
+    "Specific Program": "All degree programs (discount varies for postgraduate)",
+    "Employment status preference": "Must be a regular/plantilla-positioned uniformed and civilian active employee of PCG or their immediate family member",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Letter of Endorsement from the Coast Guard Human Resource Management Command (CGHRMC) of the PCG stipulating the name, designation, and length of service of the employee, signed by the Commander, CGHRMC",
+      "Birth Certificate of both employee and applicant who will avail the discount/scholarship",
+      "Photocopy of the valid ID of the PCG member",
+      "Employee's Certificate of No Marriage (CENOMAR) for members who will enroll their sibling/s"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "Philippine National Police (PNP)",
+    "Minimum GWA": "Not specified",
+    "Year Level restrictions": "All levels",
+    "Specific Program": "All degree programs",
+    "Employment status preference": "Must be a regular and active employee of PNP or their immediate family member",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Letter of Endorsement from the Philippine National Police national or local Headquarters stipulating the name, designation, and length of service of the employee, signed by the head",
+      "Birth Certificate of both employee and applicant who will avail the discount/scholarship",
+      "Photocopy of the valid ID of the PNP member",
+      "Employee's Certificate of No Marriage (CENOMAR) for members who will enroll their sibling/s"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "PMA Alumni Educational Foundation Inc. (PEFTI)",
+    "Minimum GWA": "Not specified",
+    "Year Level restrictions": "All levels",
+    "Specific Program": "All programs",
+    "Employment status preference": "Must be a PMA-endorsed dependent",
+    "Required Documents": [
+      "Complete basic Admissions Requirements",
+      "Endorsement letter from the PMA Alumni Educational Foundation (PEFTI)",
+      "Birth Certificate of both employee and applicant who will avail the discount/scholarship",
+      "Photocopy of the valid ID of the PMA Alumna/Alumnus",
+      "Employee's Certificate of No Marriage (CENOMAR) for members who will enroll their sibling/s"
+    ],
+    "Deadline": "Not specified"
+  },
+  {
+    "Scholarship Name": "University Academic Excellence Benefit (UAEB)",
+    "Minimum GWA": "3.00 CGWA and above",
+    "Year Level restrictions": "Continuing students",
+    "Specific Program": "All programs",
+    "Employment status preference": "Gross annual family income of less than Php 300,000",
+    "Required Documents": [
+      "Proof of Parent's Income: For Employed Parents - Latest Income Tax Return; If unemployed - (1) Certificate of Tax Exemption from the BIR District Office (2) Copy of Notarize Affidavit of Non-Filing of Tax (3) Certificate of Indigency from the Barangay (all documents are required); For single parent - Notarized affidavit of solo parent and single parent ID; For OFW parent - Certificate of Tax Exemption, Copy of Affidavit of Non-Filing of Tax and Updated Employment Contract"
+    ],
+    "Deadline": "Not specified"
+  }
+]
