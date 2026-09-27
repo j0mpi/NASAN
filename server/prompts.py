@@ -12,6 +12,7 @@ The JSON must have two top-level keys:
 ["ask_eligibility", "ask_requirements", "ask_deadline", "ask_process", \
 "greet", "out_of_scope"]
 - "entities": an object with these fields (set to null if not mentioned):
+    - "scholarship_name": exact scholarship name from the catalog, or null
     - "gwa": number (float) or null
     - "year_level": string (e.g., "1st", "2nd", "3rd", "4th", \
 "incoming first-year", "incoming grade 11", "all levels") or null
