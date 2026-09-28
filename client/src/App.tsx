@@ -11,10 +11,8 @@ export default function App() {
   const [isActive, setIsActive] = useState(false);
   const [context, setContext] = useState<ChatRequestPayload["context"]>({});
   const messagesContainerRef = useRef<HTMLDivElement>(null);
-  const hasNoScholarshipFallback = messages.some(
-    (message) =>
-      message.role === "assistant" &&
-      message.content.startsWith("I couldn't find a scholarship that matches"),
+  const hasEndedConversation = messages.some(
+    (message) => message.role === "assistant" && message.showNewChat,
   );
 
   useEffect(() => {
@@ -51,6 +49,7 @@ export default function App() {
         results: ScholarshipResult[];
         entities?: ChatRequestPayload["context"];
         options?: string[];
+        showNewChat?: boolean;
       } = await response.json();
       if (data.entities) setContext((previous) => ({ ...previous, ...data.entities }));
 
@@ -60,6 +59,7 @@ export default function App() {
         content: data.reply,
         result: data.results,
         options: data.options,
+        showNewChat: data.showNewChat,
         timestamp: Date.now(),
       };
       setMessages((prev) => [...prev, assistantMessage]);
@@ -105,8 +105,8 @@ export default function App() {
                     ))}
                   </div>
                 ) : (
-                  <div className="max-w-lg space-y-3">
-                    <div className="bg-gray-100 text-gray-700 rounded-2xl px-4 py-2 text-sm whitespace-pre-line">
+                  <div className="max-w-2xl space-y-3">
+                    <div className="bg-gray-100 text-gray-700 rounded-2xl px-4 py-2 text-sm leading-6 whitespace-pre-line">
                       {msg.content}
                     </div>
                     {msg.options && msg.options.length > 0 && (
@@ -140,7 +140,7 @@ export default function App() {
           <SearchBar
             onSubmit={sendMessage}
             isActive={isActive}
-            showNewChat={hasNoScholarshipFallback}
+            showNewChat={hasEndedConversation}
           />
         </div>
       </div>

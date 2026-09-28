@@ -21,5 +21,6 @@ export type ChatMessage = {
     content: string;
     result?: ScholarshipResult[];
     options?: string[];
+    showNewChat?: boolean;
     timestamp: number;
 };

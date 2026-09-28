@@ -39,11 +39,11 @@ def _scholarship_list_reply() -> str:
     lines = ["Here are the scholarships currently available at NU:"]
     for scholarship in SCHOLARSHIPS:
         description = (
-            f"Minimum GWA: {scholarship['Minimum GWA']}; "
-            f"for {scholarship['Year Level restrictions']}; "
-            f"programs: {scholarship['Specific Program']}."
+            f"Minimum GWA: {scholarship['Minimum GWA']} | "
+            f"Eligible: {scholarship['Year Level restrictions']} | "
+            f"Programs: {scholarship['Specific Program']}"
         )
-        lines.append(f"{scholarship['Scholarship Name']} - {description}")
+        lines.append(f"- {scholarship['Scholarship Name']}\n  {description}")
     return "\n".join(lines)
 
 
@@ -155,6 +155,8 @@ def chat():
         "reply": reply,
         "results": results,
         "options": options,
+        "showNewChat": intent == "ask_list"
+        or reply.startswith("I couldn't find a scholarship that matches"),
         "source": source,
     })
 
