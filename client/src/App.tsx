@@ -5,6 +5,30 @@ import ScholarshipCard from "./components/ScholarshipCard";
 import type { ChatMessage, ChatRequestPayload, ScholarshipResult } from "./types";
 
 const API_ENDPOINT = "/api/chat";
+const SCHOLARSHIP_LIST_HEADER = "Here are the scholarships currently available at NU:";
+
+function ScholarshipListMessage({ content }: { content: string }) {
+  const lines = content.split("\n");
+  const entries: Array<{ name: string; description: string }> = [];
+
+  for (let index = 1; index < lines.length; index += 2) {
+    const name = lines[index]?.replace(/^-\s*/, "");
+    const description = lines[index + 1]?.trim();
+    if (name && description) entries.push({ name, description });
+  }
+
+  return (
+    <div className="space-y-3">
+      <p>{lines[0]}</p>
+      {entries.map((entry) => (
+        <div key={entry.name}>
+          <p className="font-bold text-brand-navy">{entry.name}</p>
+          <p>{entry.description}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -107,7 +131,11 @@ export default function App() {
                 ) : (
                   <div className="max-w-2xl space-y-3">
                     <div className="bg-gray-100 text-gray-700 rounded-2xl px-4 py-2 text-sm leading-6 whitespace-pre-line">
-                      {msg.content}
+                      {msg.content.startsWith(SCHOLARSHIP_LIST_HEADER) ? (
+                        <ScholarshipListMessage content={msg.content} />
+                      ) : (
+                        msg.content
+                      )}
                     </div>
                     {msg.options && msg.options.length > 0 && (
                       <div className="flex flex-wrap gap-2">
