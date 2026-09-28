@@ -23,7 +23,19 @@ function ScholarshipListMessage({ content }: { content: string }) {
       {entries.map((entry) => (
         <div key={entry.name}>
           <p className="font-bold text-brand-navy">{entry.name}</p>
-          <p>{entry.description}</p>
+          <p>
+            {entry.description.split(" | ").map((detail, index) => {
+              const separatorIndex = detail.indexOf(": ");
+              const label = detail.slice(0, separatorIndex + 1);
+              const value = detail.slice(separatorIndex + 2);
+              return (
+                <span key={detail}>
+                  {index > 0 && " | "}
+                  <span className="font-bold">{label}</span> {value}
+                </span>
+              );
+            })}
+          </p>
         </div>
       ))}
     </div>
