@@ -11,8 +11,10 @@ export default function App() {
   const [isActive, setIsActive] = useState(false);
   const [context, setContext] = useState<ChatRequestPayload["context"]>({});
   const messagesContainerRef = useRef<HTMLDivElement>(null);
-  const hasScholarshipResults = messages.some(
-    (message) => message.result && message.result.length > 0,
+  const hasNoScholarshipFallback = messages.some(
+    (message) =>
+      message.role === "assistant" &&
+      message.content.startsWith("I couldn't find a scholarship that matches"),
   );
 
   useEffect(() => {
@@ -138,7 +140,7 @@ export default function App() {
           <SearchBar
             onSubmit={sendMessage}
             isActive={isActive}
-            showNewChat={hasScholarshipResults}
+            showNewChat={hasNoScholarshipFallback}
           />
         </div>
       </div>

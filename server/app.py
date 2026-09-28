@@ -6,7 +6,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from router import route_intent
 from entity_extractor import extract
-from eligibility_matcher import find_matches
+from eligibility_matcher import SCHOLARSHIPS, find_matches
 
 load_dotenv()
 
@@ -85,6 +85,8 @@ def chat():
     for key, value in previous_entities.items():
         if entities.get(key) is None and value is not None:
             entities[key] = value
+    if rule_entities.get("intent") == "ask_list":
+        intent = "ask_list"
     if intent == "out_of_scope" and any(
         entities.get(key) is not None
         for key in ("gwa", "year_level", "program", "student_type", "affiliation")
@@ -93,7 +95,10 @@ def chat():
 
     # Step 3: route by intent
     options = []
-    if intent == "ask_eligibility":
+    if intent == "ask_list":
+        results = SCHOLARSHIPS
+        reply = "Here are the scholarships currently available at NU."
+    elif intent == "ask_eligibility":
         results = find_matches(entities)
         if not entities.get("student_type"):
             results = []

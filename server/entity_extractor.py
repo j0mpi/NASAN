@@ -4,6 +4,14 @@ import re
 from eligibility_matcher import find_scholarships
 
 INTENT_KEYWORDS = {
+    "ask_list": [
+        "list of scholarships",
+        "list scholarships",
+        "all scholarships",
+        "available scholarships",
+        "scholarships available",
+        "what scholarships",
+    ],
     "ask_deadline": ["deadline", "due date", "when is", "when's", "cutoff"],
     "ask_requirements": ["requirement", "document", "need to submit", "what do i need", "papers"],
     "ask_process": ["how do i apply", "how to apply", "renew", "renewal", "process", "steps", "procedure"],
@@ -46,6 +54,8 @@ ORDINALS = {"1": "1st", "2": "2nd", "3": "3rd", "4": "4th"}
 
 
 def _match_intent(msg: str) -> str:
+    if msg == "list":
+        return "ask_list"
     for intent, keywords in INTENT_KEYWORDS.items():
         if any(kw in msg for kw in keywords):
             return intent
@@ -61,6 +71,12 @@ def _extract_gwa(msg: str):
     percentage_match = re.search(r"\b(\d{2,3}(?:\.\d+)?)\s*%", msg)
     if percentage_match:
         return float(percentage_match.group(1))
+    suffix_label_match = re.search(r"\b(\d(?:\.\d+)?)\s*(?:gwa|cgwa|average)\b", msg)
+    if suffix_label_match:
+        return float(suffix_label_match.group(1))
+    bare_cgwa_match = re.fullmatch(r"[0-4](?:\.\d+)?", msg)
+    if bare_cgwa_match:
+        return float(bare_cgwa_match.group(0))
     return None
 
 
