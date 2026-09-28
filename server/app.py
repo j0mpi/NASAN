@@ -35,6 +35,18 @@ def _best_match(results: list[dict]) -> list[dict]:
     return sorted(results, key=score, reverse=True)[:1]
 
 
+def _scholarship_list_reply() -> str:
+    lines = ["Here are the scholarships currently available at NU:"]
+    for scholarship in SCHOLARSHIPS:
+        description = (
+            f"Minimum GWA: {scholarship['Minimum GWA']}; "
+            f"for {scholarship['Year Level restrictions']}; "
+            f"programs: {scholarship['Specific Program']}."
+        )
+        lines.append(f"{scholarship['Scholarship Name']} - {description}")
+    return "\n".join(lines)
+
+
 @app.route("/api/chat", methods=["POST"])
 def chat():
     data = request.get_json()
@@ -96,8 +108,8 @@ def chat():
     # Step 3: route by intent
     options = []
     if intent == "ask_list":
-        results = SCHOLARSHIPS
-        reply = "Here are the scholarships currently available at NU."
+        results = []
+        reply = _scholarship_list_reply()
     elif intent == "ask_eligibility":
         results = find_matches(entities)
         if not entities.get("student_type"):

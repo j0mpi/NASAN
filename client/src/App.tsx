@@ -106,7 +106,7 @@ export default function App() {
                   </div>
                 ) : (
                   <div className="max-w-lg space-y-3">
-                    <div className="bg-gray-100 text-gray-700 rounded-2xl px-4 py-2 text-sm">
+                    <div className="bg-gray-100 text-gray-700 rounded-2xl px-4 py-2 text-sm whitespace-pre-line">
                       {msg.content}
                     </div>
                     {msg.options && msg.options.length > 0 && (
