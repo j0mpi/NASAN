@@ -127,9 +127,7 @@ def extract(user_message: str) -> dict:
         "scholarship_name": _extract_scholarship_name(msg),
     }
     intent = _match_intent(msg)
-    # If nothing keyword-matched but we still pulled out real entities, the
-    # user is almost certainly stating their info to ask about eligibility,
-    # they just didn't use words like "eligible" or "qualify".
+
     if intent == "out_of_scope" and any(v is not None for v in entities.values()):
         intent = "ask_eligibility"
     return {
