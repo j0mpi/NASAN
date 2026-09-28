@@ -66,10 +66,10 @@ def _match_intent(msg: str) -> str:
 
 
 def _extract_gwa(msg: str):
-    percentage_match = re.search(r"\b(\d{1,3}(?:\.\d+)?)\s*%", msg)
+    percentage_match = re.search(r"(?<![-\d])(\d{1,3}(?:\.\d+)?)\s*%", msg)
     if percentage_match:
         percentage = float(percentage_match.group(1))
-        if 0 <= percentage <= 100:
+        if 0 < percentage <= 100:
             return percentage
         return None
     match = re.search(r"(?:gwa|cgwa|average)\D{0,10}(\d{1,3}(?:\.\d+)?)", msg)
@@ -80,11 +80,13 @@ def _extract_gwa(msg: str):
         return float(suffix_label_match.group(1))
     bare_cgwa_match = re.fullmatch(r"[0-4](?:\.\d+)?", msg)
     if bare_cgwa_match:
-        return float(bare_cgwa_match.group(0))
+        cgwa = float(bare_cgwa_match.group(0))
+        if cgwa > 0:
+            return cgwa
     bare_percentage_match = re.fullmatch(r"\d{1,3}(?:\.\d+)?", msg)
     if bare_percentage_match:
         percentage = float(bare_percentage_match.group(0))
-        if 0 <= percentage <= 100:
+        if 0 < percentage <= 100:
             return percentage
     return None
 

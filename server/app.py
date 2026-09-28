@@ -98,9 +98,9 @@ def chat():
         if entities.get(key) is None and value is not None:
             entities[key] = value
     wrong_grade_type = None
-    numeric_grade_match = re.fullmatch(r"\d{1,3}(?:\.\d+)?%?", user_msg)
+    numeric_grade_match = re.fullmatch(r"-?\d+(?:\.\d+)?%?", user_msg)
     numeric_grade = float(numeric_grade_match.group(0).rstrip("%")) if numeric_grade_match else None
-    invalid_numeric_grade = numeric_grade is not None and numeric_grade > 100
+    invalid_numeric_grade = numeric_grade is not None and not 0 < numeric_grade <= 100
     if entities.get("student_type") == "continuing" and (
         entities.get("gwa") is not None or invalid_numeric_grade
     ):
@@ -115,7 +115,7 @@ def chat():
             entities["gwa"] = None
             wrong_grade_type = "percentage"
     if wrong_grade_type:
-        expected_grade = "a CGWA value such as 3.50 CGWA" if wrong_grade_type == "CGWA" else "a percentage from 0% to 100%"
+        expected_grade = "a CGWA value greater than 0, such as 3.50 CGWA" if wrong_grade_type == "CGWA" else "a percentage greater than 0% and up to 100%"
         return jsonify({
             "intent": "ask_eligibility",
             "entities": entities,
