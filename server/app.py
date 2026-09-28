@@ -156,6 +156,7 @@ def chat():
         "results": results,
         "options": options,
         "showNewChat": intent == "ask_list"
+        or (intent == "ask_eligibility" and len(results) == 1)
         or reply.startswith("I couldn't find a scholarship that matches"),
         "source": source,
     })
