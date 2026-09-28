@@ -97,8 +97,30 @@ def chat():
     for key, value in previous_entities.items():
         if entities.get(key) is None and value is not None:
             entities[key] = value
+    wrong_grade_type = None
+    if entities.get("student_type") == "continuing" and entities.get("gwa") is not None:
+        if entities["gwa"] > 4 or "%" in user_msg:
+            entities["gwa"] = None
+            wrong_grade_type = "CGWA"
+    elif entities.get("student_type") in ("incoming first-year", "incoming grade 11"):
+        if entities.get("gwa") is not None and entities["gwa"] <= 4:
+            entities["gwa"] = None
+            wrong_grade_type = "percentage"
+    if wrong_grade_type:
+        expected_grade = "a CGWA value such as 3.50 CGWA" if wrong_grade_type == "CGWA" else "a percentage from 0% to 100%"
+        return jsonify({
+            "intent": "ask_eligibility",
+            "entities": entities,
+            "reply": f"Wrong grade value. Kindly input {expected_grade}.",
+            "results": [],
+            "options": [],
+            "showNewChat": False,
+            "source": source,
+        })
     if rule_entities.get("intent") == "ask_list":
         intent = "ask_list"
+    elif rule_entities.get("intent") == "ask_details":
+        intent = "ask_details"
     if intent == "out_of_scope" and any(
         entities.get(key) is not None
         for key in ("gwa", "year_level", "program", "student_type", "affiliation")
@@ -134,14 +156,16 @@ def chat():
             reply = f"Based on your answers, this is the most applicable scholarship: {results[0]['Scholarship Name']}."
         else:
             reply = "I couldn't find a scholarship that matches the details you provided. Please contact Student Developement Academic Office (SDAO) for help with the next steps."
-    elif intent in ("ask_requirements", "ask_deadline"):
+    elif intent in ("ask_requirements", "ask_deadline", "ask_details"):
         results = find_matches(entities) if entities.get("scholarship_name") else []
         if not results:
             reply = "Which scholarship would you like to know more about? Share its name and I'll look up the exact details."
         elif intent == "ask_requirements":
             reply = f"Here are the documents listed for {results[0]['Scholarship Name']}."
-        else:
+        elif intent == "ask_deadline":
             reply = f"The scholarship list shows this deadline for {results[0]['Scholarship Name']}: {results[0]['Deadline']}."
+        else:
+            reply = f"Here are the details for {results[0]['Scholarship Name']}."
     elif intent == "ask_process":
         results = []
         reply = "The scholarship list does not include the current application or renewal steps. Please contact the Student Developement Academic Office (SDAO) for guidance."

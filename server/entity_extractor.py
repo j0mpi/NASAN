@@ -12,6 +12,7 @@ INTENT_KEYWORDS = {
         "scholarships available",
         "what scholarships",
     ],
+    "ask_details": ["more details", "more about", "tell me more", "information about", "details about"],
     "ask_deadline": ["deadline", "due date", "when is", "when's", "cutoff"],
     "ask_requirements": ["requirement", "document", "need to submit", "what do i need", "papers"],
     "ask_process": ["how do i apply", "how to apply", "renew", "renewal", "process", "steps", "procedure"],
@@ -131,11 +132,6 @@ def _extract_affiliation(msg: str):
 
 
 def _extract_scholarship_name(msg: str):
-    if not any(
-        marker in msg
-        for marker in ["scholarship", "requirement", "document", "deadline", "about", "details"]
-    ):
-        return None
     matches = find_scholarships(msg)
     return matches[0]["Scholarship Name"] if matches else None
 
@@ -152,7 +148,9 @@ def extract(user_message: str) -> dict:
     }
     intent = _match_intent(msg)
 
-    if intent == "out_of_scope" and any(v is not None for v in entities.values()):
+    if intent == "out_of_scope" and entities["scholarship_name"]:
+        intent = "ask_details"
+    elif intent == "out_of_scope" and any(v is not None for v in entities.values()):
         intent = "ask_eligibility"
     return {
         "intent": intent,
