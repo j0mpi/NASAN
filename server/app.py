@@ -98,12 +98,20 @@ def chat():
         if entities.get(key) is None and value is not None:
             entities[key] = value
     wrong_grade_type = None
-    if entities.get("student_type") == "continuing" and entities.get("gwa") is not None:
-        if entities["gwa"] > 4 or "%" in user_msg:
+    numeric_grade_match = re.fullmatch(r"\d{1,3}(?:\.\d+)?%?", user_msg)
+    numeric_grade = float(numeric_grade_match.group(0).rstrip("%")) if numeric_grade_match else None
+    invalid_numeric_grade = numeric_grade is not None and numeric_grade > 100
+    if entities.get("student_type") == "continuing" and (
+        entities.get("gwa") is not None or invalid_numeric_grade
+    ):
+        if invalid_numeric_grade or entities["gwa"] > 4 or "%" in user_msg:
             entities["gwa"] = None
             wrong_grade_type = "CGWA"
     elif entities.get("student_type") in ("incoming first-year", "incoming grade 11"):
-        if entities.get("gwa") is not None and entities["gwa"] <= 4:
+        if invalid_numeric_grade:
+            entities["gwa"] = None
+            wrong_grade_type = "percentage"
+        elif entities.get("gwa") is not None and entities["gwa"] <= 4:
             entities["gwa"] = None
             wrong_grade_type = "percentage"
     if wrong_grade_type:
