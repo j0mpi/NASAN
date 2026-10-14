@@ -61,7 +61,7 @@ Other backend endpoints:
 From the repository root:
 
 ```powershell
-pip install -r requirements.txt
+pip install -r server\requirements.txt
 python server\app.py
 ```
 
@@ -106,7 +106,6 @@ NASAN/
 |-- .gitattributes
 |-- .gitignore
 |-- README.md
-|-- requirements.txt
 |-- client/
 |   |-- .gitignore
 |   |-- eslint.config.js
@@ -140,8 +139,8 @@ NASAN/
 		|-- eligibility_matcher.py
 		|-- entity_extractor.py
 		|-- llm_client.py
-		|-- package-lock.json
 		|-- prompts.py
+		|-- requirements.txt
 		|-- router.py
 		`-- scholarships.json
 ```
@@ -159,7 +158,6 @@ Generated directories may also appear locally but are not part of the applicatio
 - `.gitattributes`: enables automatic text-file detection and LF line-ending normalization.
 - `.gitignore`: ignores logs, dependency directories, build output, local files, and editor metadata.
 - `README.md`: this project overview, setup guide, API description, structure, and file reference.
-- `requirements.txt`: Python dependencies for the optional LLM integration and the original FastAPI/Uvicorn setup. The current Flask entry point also imports `flask` and `flask-cors`, which should be added to this file for a fresh backend installation.
 
 ### Client configuration and entry files
 
@@ -202,7 +200,7 @@ Generated directories may also appear locally but are not part of the applicatio
 - `server/scholarships.json`: scholarship and discount catalog, including eligibility requirements, required documents, and deadlines.
 - `server/prompts.py`: system prompt for optional LLM mode; defines the expected JSON intent/entity output and includes representative examples.
 - `server/llm_client.py`: asynchronous OpenAI-compatible client that sends the prompt and user message to the configured LLM and parses its JSON response.
-- `server/package-lock.json`: empty npm lockfile generated in the server directory; the backend itself is Python-based and does not use Node packages.
+- `server/requirements.txt`: pinned Python dependencies for the Flask backend and optional LLM integration.
 
 ## Notes
 

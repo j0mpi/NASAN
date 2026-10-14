@@ -7,6 +7,10 @@ import type { ChatMessage, ChatRequestPayload, ScholarshipResult } from "./types
 const API_ENDPOINT = "/api/chat";
 const SCHOLARSHIP_LIST_HEADER = "Here are the scholarships currently available at NU:";
 
+function getCurrentTimestamp(): number {
+  return Date.now();
+}
+
 function ScholarshipListMessage({ content }: { content: string }) {
   const lines = content.split("\n");
   const entries: Array<{ name: string; description: string }> = [];
@@ -68,7 +72,7 @@ export default function App() {
       id: crypto.randomUUID(),
       role: "user",
       content: text,
-      timestamp: Date.now(),
+      timestamp: getCurrentTimestamp(),
     };
     setMessages((prev) => [...prev, userMessage]);
 
@@ -96,15 +100,15 @@ export default function App() {
         result: data.results,
         options: data.options,
         showNewChat: data.showNewChat,
-        timestamp: Date.now(),
+        timestamp: getCurrentTimestamp(),
       };
       setMessages((prev) => [...prev, assistantMessage]);
-    } catch (error) {
+    } catch {
       const errorMessage: ChatMessage = {
         id: crypto.randomUUID(),
         role: "assistant",
         content: "Sorry, we couldn't find your scholarship matches right now. Please try again.",
-        timestamp: Date.now(),
+        timestamp: getCurrentTimestamp(),
       };
       setMessages((prev) => [...prev, errorMessage]);
     }

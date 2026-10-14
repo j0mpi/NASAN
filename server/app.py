@@ -179,7 +179,7 @@ def chat():
         reply = "The scholarship list does not include the current application or renewal steps. Please contact the Student Developement Academic Office (SDAO) for guidance."
     else:
         results = []
-        reply = "I can help you check eligibility, required documents, deadlines, or application steps. Could you tell me a little more about what you need?"
+        reply = "I am NASAN or NU-Laguna Academic Scholarship Assistance Navigator and I can only help with NU-Laguna Scholarship needs, this is not in my scope so please ask everything about scholarships only"
 
     return jsonify({
         "intent": intent,
