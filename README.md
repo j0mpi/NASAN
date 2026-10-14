@@ -18,6 +18,36 @@ The normal request flow is:
 5. Eligibility requests are matched against `server/scholarships.json`.
 6. The client displays the backend reply and zero or more scholarship cards.
 
+## NLP Pipeline and Technical Decisions
+
+```mermaid
+flowchart LR
+	A[User message] --> B[Normalize and tokenize]
+	B --> C{Known keyword or phrase?}
+	C -->|Yes| D[Rule intent and entity extraction]
+	C -->|No| E[TF-IDF unigram and bigram features]
+	E --> F[Cosine similarity to labeled intent examples]
+	F --> D
+	D --> G[Eligibility filters]
+	G --> H[Scholarship response]
+```
+
+1. **Dataset/corpus:** `server/scholarships.json` is a structured, domain-specific catalog. See `server/DATASET_CARD.md` for coverage, schema, limitations, and maintenance guidance.
+2. **Preprocessing:** `server/preprocessing.py` applies Unicode normalization, lowercasing, whitespace normalization, regex tokenization, numeric-token preservation, and stop-word removal. Existing phrase rules remain unchanged for deterministic behavior.
+3. **Feature representation:** `server/feature_extractor.py` builds TF-IDF vectors from unigrams and bigrams. Cosine similarity is used only as a fallback for paraphrases that do not match a rule keyword.
+4. **Language model:** The primary classifier is explainable rule-based intent/entity extraction; the optional `USE_LLM=true` path uses the configured OpenAI-compatible model and falls back to the rules if unavailable. Eligibility is then calculated against structured records rather than generated facts.
+5. **Response quality:** The backend preserves conversation context, asks for missing profile fields, validates percentage versus CGWA scales, and returns deterministic scholarship records.
+
+### Evaluation and Error Analysis
+
+Run the dependency-free evaluation harness from the repository root:
+
+```powershell
+python server\evaluate.py
+```
+
+It reports accuracy, per-intent precision, recall, F1-score, a confusion matrix, sample conversations, and an explicit error list. The cases deliberately include paraphrases, numeric-grade variations, affiliation information, and out-of-scope questions. Because this is a small hand-labeled smoke set rather than a statistically representative corpus, the scores demonstrate implementation behavior, not production generalization. Add reviewed examples to `CASES` when new failure modes are found.
+
 ## API
 
 ### `POST /api/chat`

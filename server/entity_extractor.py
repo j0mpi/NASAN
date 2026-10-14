@@ -2,6 +2,7 @@
 import re
 
 from eligibility_matcher import find_scholarships
+from feature_extractor import classify_intent
 
 INTENT_KEYWORDS = {
     "ask_list": [
@@ -62,7 +63,7 @@ def _match_intent(msg: str) -> str:
             return intent
     if any(re.search(rf"\b{re.escape(g)}\b", msg) for g in ["hi", "hello", "hey", "thanks", "thank you"]):
         return "greet"
-    return "out_of_scope"
+    return classify_intent(msg) or "out_of_scope"
 
 
 def _extract_gwa(msg: str):
