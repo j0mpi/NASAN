@@ -3,6 +3,7 @@ import re
 
 from eligibility_matcher import find_scholarships
 from feature_extractor import classify_intent
+from preprocessing import correct_domain_typos
 
 INTENT_KEYWORDS = {
     "ask_list": [
@@ -14,7 +15,11 @@ INTENT_KEYWORDS = {
         "what scholarships",
     ],
     "ask_details": ["more details", "more about", "tell me more", "information about", "details about"],
-    "ask_deadline": ["deadline", "due date", "when is", "when's", "cutoff"],
+    "ask_deadline": [
+        "deadline", "due date", "when is", "when's", "cutoff",
+        "until what date", "last day to apply", "when should i submit",
+        "cutoff for applications",
+    ],
     "ask_requirements": ["requirement", "document", "need to submit", "what do i need", "papers"],
     "ask_process": ["how do i apply", "how to apply", "renew", "renewal", "process", "steps", "procedure"],
     "ask_eligibility": ["qualify", "eligible", "eligibility", "am i", "can i get", "is there a scholarship"],
@@ -114,6 +119,10 @@ def _extract_student_type(msg: str):
         return "incoming first-year"
     if "incoming" in msg and ("grade 11" in msg or "grade eleven" in msg):
         return "incoming grade 11"
+    if ("freshman" in msg or "first year" in msg or "first-year" in msg) and (
+        _extract_gwa(msg) or 0
+    ) > 4:
+        return "incoming first-year"
     if "grade 11" in msg or "grade eleven" in msg:
         return "incoming grade 11"
     if "continuing" in msg or "currently enrolled" in msg:
@@ -129,6 +138,15 @@ def _extract_affiliation(msg: str):
     for label, keywords in AFFILIATION_KEYWORDS.items():
         if any(kw in msg for kw in keywords):
             return label
+    if (
+        ("graduate" in msg or "graduated" in msg or "alumni" in msg)
+        and (
+            re.search(r"\b(dad|mom|mother|father|parent|brother|sister|sibling)\b", msg)
+            or "graduate of nu" in msg
+            or "nu graduate" in msg
+        )
+    ):
+        return "family of alumni"
     if any(phrase in msg for phrase in ["no affiliation", "none of these", "none"]):
         return "none"
     return None
@@ -140,7 +158,7 @@ def _extract_scholarship_name(msg: str):
 
 
 def extract(user_message: str) -> dict:
-    msg = user_message.lower().strip()
+    msg = correct_domain_typos(user_message)
     entities = {
         "gwa": _extract_gwa(msg),
         "year_level": _extract_year_level(msg),
@@ -151,10 +169,14 @@ def extract(user_message: str) -> dict:
     }
     intent = _match_intent(msg)
 
-    if intent == "out_of_scope" and entities["scholarship_name"]:
-        intent = "ask_details"
-    elif intent == "out_of_scope" and any(v is not None for v in entities.values()):
+    if intent == "out_of_scope" and (
+        entities.get("student_type")
+        or (entities.get("affiliation") and not entities.get("scholarship_name"))
+        or any(entities.get(key) is not None for key in ("gwa", "year_level", "program"))
+    ):
         intent = "ask_eligibility"
+    elif intent == "out_of_scope" and entities["scholarship_name"]:
+        intent = "ask_details"
     return {
         "intent": intent,
         "entities": entities,

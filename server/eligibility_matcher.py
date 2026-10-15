@@ -11,9 +11,12 @@ import re
 import unicodedata
 
 SCHOLARSHIPS_PATH = os.path.join(os.path.dirname(__file__), "scholarships.json")
+APPLICATION_DEADLINE_TEXT = "before November 3"
 
 with open(SCHOLARSHIPS_PATH, "r", encoding="utf-8") as f:
     SCHOLARSHIPS = json.load(f)
+for scholarship in SCHOLARSHIPS:
+    scholarship["Deadline"] = APPLICATION_DEADLINE_TEXT
 
 
 def _parse_min_gwa(value: str):
@@ -56,6 +59,7 @@ def _normalize_text(value: str) -> str:
 def _name_tokens(value: str) -> set[str]:
     ignored = {
         "the", "program", "scholarship", "scholar", "discount", "benefit", "inc", "and",
+        "nu", "national", "university",
         "what", "which", "where", "when", "how", "do", "does", "is", "are", "for",
         "my", "me", "i", "need", "documents", "document", "requirements", "requirement",
         "deadline", "about", "of", "the", "please", "tell", "give",

@@ -6,7 +6,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from router import route_intent
 from entity_extractor import extract
-from eligibility_matcher import SCHOLARSHIPS, find_matches
+from eligibility_matcher import APPLICATION_DEADLINE_TEXT, SCHOLARSHIPS, find_matches
 
 load_dotenv()
 
@@ -92,8 +92,16 @@ def chat():
     rule_entities = extract(user_msg)
 
     for key, value in rule_entities.get("entities", {}).items():
-        if entities.get(key) is None and value is not None:
+        if value is not None:
             entities[key] = value
+    rule_intent = rule_entities.get("intent")
+    if rule_intent and rule_intent != "out_of_scope":
+        # Known rule matches must not be replaced by an optional LLM misclassification.
+        intent = rule_intent
+        if rule_intent in ("ask_eligibility", "ask_deadline") and not rule_entities["entities"].get(
+            "scholarship_name"
+        ):
+            entities["scholarship_name"] = None
     for key, value in previous_entities.items():
         if entities.get(key) is None and value is not None:
             entities[key] = value
@@ -142,11 +150,22 @@ def chat():
         reply = _scholarship_list_reply()
     elif intent == "ask_eligibility":
         results = find_matches(entities)
-        if not entities.get("student_type"):
+        if not entities.get("student_type") and not (
+            entities.get("affiliation")
+            and results
+            and all("all levels" in result["Year Level restrictions"].lower() for result in results)
+        ):
             results = []
             reply = "To narrow this down, are you an incoming first-year student, an incoming Grade 11 student, or a continuing student?"
             options = ["Incoming First Year", "Incoming Grade 11", "Continuing Student"]
-        elif not entities.get("gwa") and entities.get("affiliation") not in ("none",):
+        elif (
+            not entities.get("gwa")
+            and entities.get("affiliation") not in ("none",)
+            and (
+                not results
+                or any(result["Minimum GWA"] != "Not specified" for result in results)
+            )
+        ):
             results = []
             if entities.get("student_type") == "continuing":
                 reply = "Thanks. What is your CGWA? For example, you can reply with 3.50 CGWA."
@@ -154,6 +173,7 @@ def chat():
                 reply = "Thanks. What is your GWA percentage? For example, you can reply with 90% GWA."
         elif (
             not entities.get("affiliation")
+            and entities.get("student_type") != "incoming first-year"
             and len(find_matches(entities, allow_missing_affiliation=True)) > len(results)
         ):
             results = []
@@ -166,12 +186,22 @@ def chat():
             reply = "I couldn't find a scholarship that matches the details you provided. Please contact Student Developement Academic Office (SDAO) for help with the next steps."
     elif intent in ("ask_requirements", "ask_deadline", "ask_details"):
         results = find_matches(entities) if entities.get("scholarship_name") else []
-        if not results:
+        if intent == "ask_deadline":
+            if results:
+                reply = (
+                    f"All applications, including {results[0]['Scholarship Name']}, "
+                    f"must be submitted {APPLICATION_DEADLINE_TEXT}. "
+                    "I can also help with eligibility or required documents."
+                )
+            else:
+                reply = (
+                    f"All scholarship applications must be submitted {APPLICATION_DEADLINE_TEXT}. "
+                    "I can also help with eligibility or required documents."
+                )
+        elif not results:
             reply = "Which scholarship would you like to know more about? Share its name and I'll look up the exact details."
         elif intent == "ask_requirements":
             reply = f"Here are the documents listed for {results[0]['Scholarship Name']}."
-        elif intent == "ask_deadline":
-            reply = f"The scholarship list shows this deadline for {results[0]['Scholarship Name']}: {results[0]['Deadline']}."
         else:
             reply = f"Here are the details for {results[0]['Scholarship Name']}."
     elif intent == "ask_process":

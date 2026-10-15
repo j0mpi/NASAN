@@ -21,6 +21,10 @@ INTENT_EXAMPLES = {
         "when is the deadline",
         "what is the due date",
         "when should i apply",
+        "until what date can i send in my application",
+        "what is the last day to apply",
+        "when should i submit",
+        "cutoff for applications",
     ],
     "ask_process": [
         "how do i apply",
